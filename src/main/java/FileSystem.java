@@ -1,15 +1,16 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 public class FileSystem {
 
-    private static final String fs_path = "./src/main/resources/test_img.imgv";
+    private final String fs_path;
+
+    public FileSystem(String fs_path) {
+        this.fs_path = fs_path;
+    }
 
     public static String xorEncryptDecrypt(String input, String key) {
         StringBuilder output = new StringBuilder();
@@ -26,16 +27,49 @@ public class FileSystem {
 
     }
 
-    public static byte[] getFile(String filePathInZip) throws IOException {
-        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(Paths.get(fs_path)))) {
-            ZipEntry entry;
-            while ((entry = zipInputStream.getNextEntry()) != null) {
-                if (entry.getName().equals(filePathInZip)) {
-                    return readInputStream(zipInputStream);
-                }
+    public byte[] getFile(String filePath) throws IOException {
+        String[] files = filePath.split("/");
+        String fs_contains = "";
+        Folder filesystem = new Folder("fs");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line = br.readLine();
+            while (line != null) {
+                line = br.readLine();
+                fs_contains += '\n' + line;
             }
         }
         return null;
+    }
+
+    public class Folder {
+        public String name;
+        public ArrayList<File> files;
+        public ArrayList<Folder> folders;
+
+        public Folder(String name, File[] files, Folder[] folders) {
+            this.name = name;
+            this.files.addAll(Arrays.asList(files));
+            this.folders.addAll(Arrays.asList(folders));
+        }
+
+        public Folder(String name) {
+            this.name = name;
+        }
+    }
+
+    public class File {
+        public String name;
+        public byte[] data;
+
+        public File(String name, byte[] data) {
+            this.name = name;
+            this.data = data;
+        }
+
+        public File(String name) {
+            this.name = name;
+        }
     }
 
     private static byte[] readInputStream(InputStream inputStream) throws IOException {

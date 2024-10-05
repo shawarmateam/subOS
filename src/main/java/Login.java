@@ -15,7 +15,7 @@ public class Login {
         String password = sc.nextLine();
 
         try {
-            byte[] testPwd = FileSystem.getFile("bin/pswrd_"+username);
+            byte[] testPwd = Boot.fileSystem.getFile("bin/pswrd_"+username);
 
             if (testPwd == null) {
                 System.out.println("fail. incorrect password or username.");
