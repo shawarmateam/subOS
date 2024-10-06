@@ -27,19 +27,74 @@ public class FileSystem {
 
     }
 
-    public byte[] getFile(String filePath) throws IOException {
-        String[] files = filePath.split("/");
+    public File getFile(String filePath) throws IOException {
+        String[] path = filePath.split("/");
         String fs_contains = "";
         Folder filesystem = new Folder("fs");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine();
-            while (line != null) {
-                line = br.readLine();
-                fs_contains += '\n' + line;
+
+        return null;
+    }
+
+    public Folder getFolder(String folderPath) throws IOException {
+        Folder filesystem = new Folder("^");
+        int[] line = new int[0];
+
+        try (FileInputStream fis = new FileInputStream(fs_path)) {
+            ArrayList<Integer> bytes = new ArrayList<>();
+            int byteRead;
+            while ((byteRead = fis.read()) != -1) {
+                bytes.add(byteRead);
+            }
+
+            line = new int[bytes.size()];
+            for (int i = 0; i < bytes.size(); i++) {
+                line[i] = bytes.get(i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (line.length == 0) return null;
+
+        while (true)
+        {
+            int i = 0;
+            if (line[i] == 0x01)
+            {
+                String sectorName = readSectorName(i, line);
+                assert sectorName != null;
+                if (isSectorFile(sectorName))
+                {
+                    filesystem.files.add(new File(sectorName));
+                } else
+                {
+                    filesystem.folders.add(new Folder(sectorName));
+                }
             }
         }
+
+
         return null;
+    }
+
+    private String readSectorName(int i, int[] line) {
+        if (i != 0x02) return null;
+        String name = "";
+
+        while (true)
+        {
+            i++;
+            if (line[i] == 0x02) break;
+            name += line[i];
+        }
+        return (!name.isEmpty()) ? name : null;
+    }
+
+    private boolean isSectorFile(String sectorName)
+    {
+        for (int i = 0; i < sectorName.length(); i++) if (sectorName.charAt(i) == '.') return true;
+        return false;
     }
 
     public class Folder {
