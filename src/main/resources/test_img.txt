@@ -1,2 +1,0 @@
-^users^users/root^bin^bin/pswrd_root./$2a$10$ELALL5lEaeeMad2w.DFubucd1wcL8gXgCsBGLB1OhietO3Q7iXv6C^users/root/test_file./dddsa\\\^dasd^bin/shutdown.b/@shell>KILLSIG\^@boot>KILLSIG\^@exec>KILLSIG^bin/hello_world.b/$<Hello world!
-\^<0-13\^@exec>KILLSIG^

@@ -1,5 +1,5 @@
 public class Boot {
-    public static FileSystem fileSystem = new FileSystem("./src/main/resources/test_img.txt");
+    public static FileSystem fileSystem = new FileSystem("./src/main/resources/test_img.imgvimgv");
 
     public static void main(String[] args) {
         while (true) {
