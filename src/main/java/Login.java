@@ -14,15 +14,18 @@ public class Login {
         System.out.print("Enter password: ");
         String password = sc.nextLine();
 
-        try {
-            byte[] testPwd = Boot.fileSystem.getFile("bin/pswrd_"+username);
+        //try {
+//            byte[] testPwd = Boot.fileSystem.getFile("bin/pswrd_"+username);
+//
+//            if (testPwd == null) {
+//                System.out.println("fail. incorrect password or username.");
+//                return false;
+//            }
 
-            if (testPwd == null) {
-                System.out.println("fail. incorrect password or username.");
-                return false;
-            }
+            String checkPwd = FileSystem.getFile("^bin/pswrd_"+username+".");
+            System.out.println("'"+checkPwd+"'");
 
-            String checkPwd = new String(testPwd);
+            //String checkPwd = new String(testPwd);
 
             if (BCrypt.checkpw(password, checkPwd)) {
                 System.out.println("success.");
@@ -34,9 +37,9 @@ public class Login {
             } else {
                 System.out.println("fail. incorrect password or username.\n");
             }
-        } catch (IOException e) {
+        /*} catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return false;
     }
 }

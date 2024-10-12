@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class Shell {
     public static int main() throws IOException {
-        String currentDir = "users/"+CurrentUser.username;
+        String currentDir = "^users/"+CurrentUser.username;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
@@ -34,7 +34,14 @@ public class Shell {
         execCmd(resultList.toArray(new String[0]));
     }
 
+    public static void kill() {
+        System.out.print("logout...");
+        System.exit(0);
+    }
+
     public static void execCmd(String[] cmd) {
+        if (cmd.length == 0) return;
+
         switch (cmd[0]) {
             case "cd":
                 break;
@@ -43,11 +50,17 @@ public class Shell {
                 System.out.flush();
                 break;
             case "exit":
-                System.out.print("logout...");
-                System.exit(0);
+                kill();
+                break;
+            case "getf":
+                System.out.println("'"+FileSystem.getFile(cmd[1])+"'");
+                break;
+            case "exec":
+                ExecParser.main(new String[] {cmd[1]});
                 break;
             default:
-                System.out.println("Not a command. ("+ Arrays.toString(cmd) +")");
+                if (FileSystem.findFile("^bin/"+cmd[0]+".b")) ExecParser.main(new String[]{"^bin/"+cmd[0]+".b"});
+                else System.out.println("Not a command. ("+ Arrays.toString(cmd) +")");
                 break;
         }
     }
