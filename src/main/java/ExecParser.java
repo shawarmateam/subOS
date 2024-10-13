@@ -48,15 +48,12 @@ public class ExecParser {
                 if (Objects.equals(s2, "KILLSIG")) {
                     switch (s) {
                         case "shell":
-                            System.out.println("killing shell...");
                             Shell.kill();
                             break;
                         case "boot":
-                            System.out.println("killing boot...");
                             Boot.kill();
                             break;
                         case "exec":
-                            System.out.println("killing self...");
                             running=false;
                             break;
                     }
