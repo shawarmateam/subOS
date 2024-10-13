@@ -40,14 +40,32 @@ public class Shell {
         System.exit(0);
     }
 
+    public static String getPathWithDot(String path) {
+        if (path.charAt(0) == '.' && path.charAt(1) != '.') {
+            path=path.substring(1);
+            path=currentDir+'/'+path;
+            return path;
+        } else if (path.charAt(0) == '.') {
+            String temp = path;
+            path=currentDir;
+
+            for (int i = 0; i < currentDir.length(); i++) {
+                if (path.charAt(path.length()-1) != '/') path=path.substring(0, path.length()-1);
+                else break;
+            }
+            path=path.substring(0, path.length()-1);
+        }
+        return path;
+    }
+
     public static void execCmd(String[] cmd) {
         if (cmd.length == 0) return;
 
         switch (cmd[0]) {
             case "cd":
                 if (cmd.length == 1) currentDir = "^users/"+CurrentUser.username;
-                else if (FileSystem.findFolder(cmd[1])) currentDir = cmd[1];
-                else System.out.println("Directory '"+cmd[1]+"' does not exist.");
+                else if (FileSystem.findFolder(getPathWithDot(cmd[1]))) currentDir = getPathWithDot(cmd[1]);
+                else System.out.println("Directory '"+getPathWithDot(cmd[1])+"' does not exist.");
                 break;
             case "clear":
                 System.out.print("\033[H\033[2J");
