@@ -43,7 +43,7 @@ public class Shell {
     public static String getPathWithDot(String path) {
         if (path.charAt(0) == '.' && path.charAt(1) != '.') {
             path=path.substring(1);
-            path=currentDir+'/'+path;
+            path=currentDir+path;
             return path;
         } else if (path.charAt(0) == '.') {
             String temp = path;
