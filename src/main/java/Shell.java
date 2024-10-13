@@ -9,8 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Shell {
+    static String currentDir = "^users/"+CurrentUser.username;
+
     public static int main() throws IOException {
-        String currentDir = "^users/"+CurrentUser.username;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
@@ -44,6 +45,9 @@ public class Shell {
 
         switch (cmd[0]) {
             case "cd":
+                if (cmd.length == 1) currentDir = "^users/"+CurrentUser.username;
+                else if (FileSystem.findFolder(cmd[1])) currentDir = cmd[1];
+                else System.out.println("Directory '"+cmd[1]+"' does not exist.");
                 break;
             case "clear":
                 System.out.print("\033[H\033[2J");

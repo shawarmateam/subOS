@@ -16,10 +16,11 @@ public class FileSystem {
     }
 
     public static boolean findFolder(String path) {
+        if (path.charAt(path.length()-1) == '\\') return false;
         if (path.charAt(0) != '^') return false;
         if (path.contains(".")) return false;
 
-        return fs_str.contains(path + "^");
+        return fs_str.contains(path + "^") && !fs_str.contains("\\" + path + "^");
     }
 
     public static boolean findFile(String path) {
