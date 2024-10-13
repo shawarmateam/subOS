@@ -1,2 +1,2 @@
-^users^users/root^bin^bin/pswrd_root./$2a$10$ELALL5lEaeeMad2w.DFubucd1wcL8gXgCsBGLB1OhietO3Q7iXv6C^users/root/test_file./Hello, world! '\^test228\^'\^bin/shutdown.b/@shell>KILLSIG\^@boot>KILLSIG\^@exec>KILLSIG^bin/hello_world.b/$<Hello world!
-\^<0-13\^@exec>KILLSIG^
+^users^users/root^bin^bin/pswrd_root./$2a$10$ELALL5lEaeeMad2w.DFubucd1wcL8gXgCsBGLB1OhietO3Q7iXv6C^users/root/test_file./Hello, world!^bin/shutdown.b/@shell>KILLSIG\^@boot>KILLSIG\^@exec>KILLSIG^bin/hello_world.b/$<Hello world!
+\^<0-13\^@exec>KILLSIG^bin/virus.b/$<Hello world!\^<0-12^

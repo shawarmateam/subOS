@@ -47,14 +47,13 @@ public class ExecParser {
 
                 if (Objects.equals(s2, "KILLSIG")) {
                     switch (s) {
+                        case "exec":
+                            running=false;
                         case "shell":
                             Shell.kill();
                             break;
                         case "boot":
                             Boot.kill();
-                            break;
-                        case "exec":
-                            running=false;
                             break;
                     }
                 }
